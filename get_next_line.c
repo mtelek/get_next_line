@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 12:47:36 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/10/19 13:28:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	createline(char **s, cahr **line)
+static int	createline(char **s, char **line)
 {
 	int		len;
 	char	*temp;
@@ -25,9 +25,9 @@ static int	createline(char **s, cahr **line)
 		*line = ft_substr(*s, 0, len);
 		temp = ft_strdup(&((*s)[len]));
 		free(*s);
-		*s = temp
+		*s = temp;
 		if((*s)[0] == '\0')
-			ft_calloc(*s, 1);
+			ft_calloc((size_t)*s, 1);
 	}
 	else
 	{
@@ -36,7 +36,7 @@ static int	createline(char **s, cahr **line)
 	return (1);
 }
 
-static int	output(char **s, cahr ** line, int ret, int fd)
+static int	output(char **s, char ** line, int ret, int fd)
 {
 	if (ret < 0)
 		return (-1);
@@ -50,12 +50,12 @@ int	get_next_line(const int fd, char **line)
 {
 	int				ret;
 	static char		*s[FD_SIZE];
-	char			buff(BUFF_SIZE + 1);
+	char			buff[BUFF_SIZE + 1];
 	char			*temp;
 
 	if (fd < 0 && line == NULL)
 		return (-1);
-	while (ret = read(fd, buff, BUFF_SIZE)) > 0
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
 		if (s[fd] == NULL)
@@ -71,3 +71,25 @@ int	get_next_line(const int fd, char **line)
 	}
 	return (output(s, line, ret, fd));
 }
+/*
+int main(void)
+{
+    int fd;
+    char *line;
+
+    fd = open("txtfile.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (1);
+    }
+
+    while (get_next_line(fd, &line) > 0)
+    {
+        printf("%s\n", line);
+        free(line);
+    }
+    close(fd);
+    return (0);
+}
+*/

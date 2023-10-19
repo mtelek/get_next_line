@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 12:47:59 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/10/19 13:29:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*p;
+
+	p = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		p[i] = 0;
+		i++;
+	}
+}
 
 char	*ft_strchr(const char *str, int c)
 {
