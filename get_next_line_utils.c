@@ -6,11 +6,20 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 13:29:15 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 19:00:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void ft_strdel(char **str) 
+{
+    if (str && *str) 
+	{
+        free(*str);
+        *str = NULL;
+    }
+}
 
 void	ft_bzero(void *s, size_t n)
 {

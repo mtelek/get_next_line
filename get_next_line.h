@@ -6,14 +6,14 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:48:16 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 13:47:00 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 19:19:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE	32
-#define FD_SIZE	70
+# define BUFF_SIZE 8
+#define FD_SIZE	4096
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -30,5 +30,6 @@ size_t	ft_strlen(const char *str);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void 	ft_strdel(char **str);
 
 #endif

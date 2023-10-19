@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 14:11:08 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 19:30:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,22 @@ static int	createline(char **s, char **line)
 	char	*temp;
 
 	len = 0;
-	while((*s)[len] != '\n' && (*s)[len] != '\0')
+	while ((*s)[len] != '\n' && (*s)[len] != '\0')
 		len++;
 	if((*s)[len] == '\n')
 	{
 		*line = ft_substr(*s, 0, len);
-		temp = ft_strdup(&((*s)[len]));
+		temp = ft_strdup(&((*s)[len + 1]));
 		free(*s);
 		*s = temp;
+		free(temp);
 		if((*s)[0] == '\0')
-		{
-			free(*s);
-			*s = NULL;
-		}
+			ft_strdel(s);
 	}
 	else
 	{
 		*line = ft_strdup(*s);
-		free(*s);
-		*s = NULL;
+		ft_strdel(s);
 	}
 	return (1);
 }
@@ -71,7 +68,7 @@ int	get_next_line(const int fd, char **line)
 			free(s[fd]);
 			s[fd] = temp;
 		}
-		if (ft_strchr(s[fd], '\n') != NULL) //somethings wrong here but dont really know what
+		if (ft_strchr(s[fd], '\n'))
 		{	
 			break;
 		}
