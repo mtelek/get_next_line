@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 19:30:02 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 20:51:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	createline(char **s, char **line)
+static char	*createline(char **s)
 {
 	int		len;
 	char	*temp;
@@ -22,41 +22,36 @@ static int	createline(char **s, char **line)
 		len++;
 	if((*s)[len] == '\n')
 	{
-		*line = ft_substr(*s, 0, len);
 		temp = ft_strdup(&((*s)[len + 1]));
 		free(*s);
 		*s = temp;
-		free(temp);
 		if((*s)[0] == '\0')
 			ft_strdel(s);
 	}
 	else
-	{
-		*line = ft_strdup(*s);
 		ft_strdel(s);
-	}
-	return (1);
+	return (NULL);
 }
 
-static int	output(char **s, char ** line, int ret, int fd)
+static char	*output(char **s, int ret, int fd)
 {
 	if (ret < 0)
-		return (-1);
+		return (NULL);
 	else if (ret == 0 && s[fd] == NULL)
-		return (0);
+		return (NULL);
 	else
-		return (createline(&s[fd], line));
+		return (createline(&s[fd]));
 }
 
-int	get_next_line(const int fd, char **line)
+char	*get_next_line(int fd)
 {
 	int				ret;
 	static char		*s[FD_SIZE];
 	char			buff[BUFF_SIZE + 1];
 	char			*temp;
 
-	if (fd < 0 && line == NULL)
-		return (-1);
+	if (fd < 0)
+		return (NULL);
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -73,5 +68,5 @@ int	get_next_line(const int fd, char **line)
 			break;
 		}
 	}
-	return (output(s, line, ret, fd));
+	return (output(s, ret, fd));
 }

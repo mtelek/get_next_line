@@ -6,14 +6,14 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:48:16 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 19:19:33 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 20:33:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 8
-#define FD_SIZE	4096
+# define BUFF_SIZE 1024
+#define FD_SIZE	1024
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,7 +22,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 
-int		get_next_line(const int fd, char **line);
+char		*get_next_line(int fd);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t num, size_t size);
