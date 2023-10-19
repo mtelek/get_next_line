@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 13:28:16 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 14:11:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ static int	createline(char **s, char **line)
 		free(*s);
 		*s = temp;
 		if((*s)[0] == '\0')
-			ft_calloc((size_t)*s, 1);
+		{
+			free(*s);
+			*s = NULL;
+		}
 	}
 	else
 	{
 		*line = ft_strdup(*s);
+		free(*s);
+		*s = NULL;
 	}
 	return (1);
 }
@@ -66,30 +71,10 @@ int	get_next_line(const int fd, char **line)
 			free(s[fd]);
 			s[fd] = temp;
 		}
-		if (ft_strchr(s[fd], '\n'))
-			break ;
+		if (ft_strchr(s[fd], '\n') != NULL) //somethings wrong here but dont really know what
+		{	
+			break;
+		}
 	}
 	return (output(s, line, ret, fd));
 }
-/*
-int main(void)
-{
-    int fd;
-    char *line;
-
-    fd = open("txtfile.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-
-    while (get_next_line(fd, &line) > 0)
-    {
-        printf("%s\n", line);
-        free(line);
-    }
-    close(fd);
-    return (0);
-}
-*/

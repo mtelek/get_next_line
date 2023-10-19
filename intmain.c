@@ -5,6 +5,36 @@ int main(void)
 {
     int fd;
     char *line;
+    int ret;
+
+    fd = open("txtfile.txt", O_RDONLY);
+    if (fd < 0)
+    {
+        perror("Error opening file");
+        return 1;
+    }
+    while ((ret = get_next_line(fd, &line)) > 0)
+    {
+        printf("Line: %s\n", line);
+        free(line);
+    }
+    if (ret == 0)
+    {
+        printf("End of file reached.\n");
+    }
+    else if (ret == -1)
+    {
+        printf("An error occurred while reading the file.\n");
+    }
+    close(fd);
+    return 0;
+}
+
+/*
+int main(void)
+{
+    int fd;
+    char *line;
 
     fd = open("txtfile.txt", O_RDONLY);
     if (fd == -1)
@@ -21,3 +51,4 @@ int main(void)
     close(fd);
     return (0);
 }
+*/
