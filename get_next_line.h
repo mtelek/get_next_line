@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:48:16 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/20 13:55:43 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/20 16:06:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 
-char		*get_next_line(int fd);
+char	*get_next_line(int fd);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t num, size_t size);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/20 12:19:21 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/20 16:23:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@ static char	*createline(char **s)
 {
 	int		len;
 	char	*temp;
+	char	*line;
 
 	len = 0;
-	temp = NULL;
+	line = 0;
+	if (*s == NULL)
+        return (NULL);
 	while ((*s)[len] != '\n')
 		len++;
 	if((*s)[len] == '\n')
 	{
+		line = ft_substr(*s, 0, len);
 		temp = ft_strdup(&((*s)[len + 1]));
 		free(*s);
 		*s = temp;
 		if((*s)[0] == '\0')
+		{	
 			ft_strdel(s);
+			return (NULL);
+		}
 	}
-	if((*s[len] != '\n' && *s[len + 1] == 0)) //last updated
-		return (0);
-	return ((char *)s);
+	return (line);
 }
 
 static char	*output(char **s, int ret, int fd)
@@ -47,12 +52,19 @@ static char	*output(char **s, int ret, int fd)
 char	*get_next_line(int fd)
 {
 	int				ret;
-	static char		*s[FD_SIZE];
+	static char *s[FD_SIZE];
 	char			buff[BUFF_SIZE + 1];
 	char			*temp;
-
-	if (fd < 0)
-		return (NULL);
+	int 			i;
+	
+	i = 0;
+	while (i < FD_SIZE)
+	{
+		s[i] = NULL;
+		i++;
+	}
+	 if (fd < 0 || fd >= FD_SIZE)
+        return (NULL);
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
