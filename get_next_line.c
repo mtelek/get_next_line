@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/19 20:51:49 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/20 12:19:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static char	*createline(char **s)
 	char	*temp;
 
 	len = 0;
-	while ((*s)[len] != '\n' && (*s)[len] != '\0')
+	temp = NULL;
+	while ((*s)[len] != '\n')
 		len++;
 	if((*s)[len] == '\n')
 	{
@@ -28,9 +29,9 @@ static char	*createline(char **s)
 		if((*s)[0] == '\0')
 			ft_strdel(s);
 	}
-	else
-		ft_strdel(s);
-	return (NULL);
+	if((*s[len] != '\n' && *s[len + 1] == 0)) //last updated
+		return (0);
+	return ((char *)s);
 }
 
 static char	*output(char **s, int ret, int fd)
