@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intmain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 23:51:08 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 19:59:10 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/11/01 21:58:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	{
 		return (-1);
 	}
-	while (i < 3)
+	while (i < 5)
 	{
 		test = get_next_line(fd);
 		printf("%s", test);

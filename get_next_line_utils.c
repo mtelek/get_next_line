@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 19:51:36 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/11/01 19:41:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	while (*str != '\0')
+	int	i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		if (*str == (char)c)
-			return ((char *)str);
-		str++;
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		i++;
 	}
-	if ((char)c == '\0')
-		return ((char *)str);
+	if (s[i] == (char)c)
+		return ((char *)(s + i));
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 20:11:22 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/11/01 22:45:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*get_remainder(char *s)
 	temp = ft_substr(s, len + 1, (ft_strlen(s) - len));
 	if (!temp)
 	{
-		//free(temp);
 		temp = NULL;
 	}
 	if (ft_strchr(s, '\n'))
@@ -42,7 +41,6 @@ static char	*createline(char *s, int ret)
 
 	i = 0;
 	len = 0;
-	line = 0;
 	if (s == NULL)
 		return (NULL);
 	while (s[len] != '\n' && s[len])
@@ -69,7 +67,7 @@ static char	*output(char *s, int ret, int fd)
 
 	if (fd < 0 || BUFF_SIZE < 0)
 		return (NULL);
-	else if (ret == 0 && s[fd] == 0)
+	else if (ret == 0 && *s == '\0')
 		return (NULL);
 	else
 	{
@@ -85,14 +83,6 @@ int	read_into_buffer(int fd, char **s)
 	char	*temp;
 
 	ret = read(fd, buff, BUFF_SIZE);
-	if (ret < 0)
-		return (0);
-	if (ret == 0)
-		return (0);
-	if (*s == NULL)
-	{
-		*s = ft_strdup("");
-	}
 	buff[ret] = '\0';
 	temp = *s;
 	*s = ft_strjoin(temp, buff);
@@ -112,13 +102,12 @@ char	*get_next_line(int fd)
 	char			*line;
 	int				ret;
 
+	
 	ret = 1;
 	while (ret > 0)
 	{
 		ret = read_into_buffer(fd, &s);
-		if (ret < 0)
-			return (NULL);
-		if (ft_strchr(s, '\n'))
+		if (ft_strchr(s, '\n') )
 			break ;
 	}
 	line = output(s, ret, fd);
