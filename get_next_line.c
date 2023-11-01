@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/10/30 16:20:54 by marvin           ###   ########.fr       */
+/*   Updated: 2023/11/01 15:56:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*output(char *s, int ret, int fd)
 {
 	if (ret < 0)
 		return (NULL);
-	else if (fd < 0 || BUFF_SIZE < 0)
+	if (fd < 0 || BUFF_SIZE < 0)
 		return (NULL);
 	else if (ret == 0 && s[fd] == 0)
 		return (NULL);
@@ -82,7 +82,7 @@ int	read_into_buffer(int fd, char **s)
 
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret < 0)
-		return (-1);
+		return (0);
 	if (*s == NULL)
 		*s = ft_strdup("");
 	buff[ret] = '\0';
