@@ -6,34 +6,35 @@
 /*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 17:31:08 by mtelek           ###   ########.fr       */
+/*   Updated: 2023/11/01 20:11:22 by mtelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_remainder(char *line)
+char	*get_remainder(char *s)
 {
 	char		*temp;
 	size_t		len;
 
 	len = 0;
-	while (line[len] != '\n' && line[len] != '\0')
+	while (s[len] != '\n' && s[len] != '\0')
 		len++;
-	temp = ft_substr(line, len + 1, (ft_strlen(line) - len));
+	temp = ft_substr(s, len + 1, (ft_strlen(s) - len));
 	if (!temp)
 	{
-		free(temp);
+		//free(temp);
 		temp = NULL;
 	}
-	if (ft_strchr(line, '\n'))
-		line[len + 1] = '\0';
+	if (ft_strchr(s, '\n'))
+		s[len + 1] = '\0';
 	else
-		line[len] = '\0';
+		s[len] = '\0';
+	free(s);
 	return (temp);
 }
 
-static char	*createline(char *s)
+static char	*createline(char *s, int ret)
 {
 	int		len;
 	char	*line;
@@ -46,7 +47,6 @@ static char	*createline(char *s)
 		return (NULL);
 	while (s[len] != '\n' && s[len])
 		len++;
-	//if (s[len] == '\n' || len == BUFF_SIZE || s[len] == '\0')
 	line = (char *)malloc(len + 2);
 	if (!line)
 		return (NULL);
@@ -55,19 +55,27 @@ static char	*createline(char *s)
 		line[i] = s[i];
 		i++;
 	}
-	line[len] = '\n';
-	line[len + 1] = '\0';
+	if (ret != 0)
+	{
+		line[len] = '\n';
+		line[len + 1] = '\0';
+	}
 	return (line);
 }
 
 static char	*output(char *s, int ret, int fd)
 {
+	char	*line;
+
 	if (fd < 0 || BUFF_SIZE < 0)
 		return (NULL);
 	else if (ret == 0 && s[fd] == 0)
 		return (NULL);
 	else
-		return (createline(s));
+	{
+		line = createline(s, ret);
+		return (line);
+	}
 }
 
 int	read_into_buffer(int fd, char **s)
@@ -78,9 +86,13 @@ int	read_into_buffer(int fd, char **s)
 
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret < 0)
-		return (-1);
+		return (0);
+	if (ret == 0)
+		return (0);
 	if (*s == NULL)
+	{
 		*s = ft_strdup("");
+	}
 	buff[ret] = '\0';
 	temp = *s;
 	*s = ft_strjoin(temp, buff);
@@ -98,7 +110,6 @@ char	*get_next_line(int fd)
 {
 	static char		*s;
 	char			*line;
-	char			*temp;
 	int				ret;
 
 	ret = 1;
@@ -111,8 +122,6 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	line = output(s, ret, fd);
-	temp = get_remainder(s);
-	free(s);
-	s = temp;
+	s = get_remainder(s);
 	return (line);
 }
