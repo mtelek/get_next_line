@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mtelek <mtelek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 15:56:40 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/01 17:31:08 by mtelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,24 @@ static char	*createline(char *s)
 	line = 0;
 	if (s == NULL)
 		return (NULL);
-	while (s[len] != '\n' && s[len] && len < BUFF_SIZE)
+	while (s[len] != '\n' && s[len])
 		len++;
-	if (s[len] == '\n' || len == BUFF_SIZE)
+	//if (s[len] == '\n' || len == BUFF_SIZE || s[len] == '\0')
+	line = (char *)malloc(len + 2);
+	if (!line)
+		return (NULL);
+	while (i < len)
 	{
-		line = (char *)malloc(len + 2);
-		if (!line)
-			return (NULL);
-		while (i < len)
-		{
-			line[i] = s[i];
-			i++;
-		}
-		line[len] = '\n';
-		line[len + 1] = '\0';
+		line[i] = s[i];
+		i++;
 	}
+	line[len] = '\n';
+	line[len + 1] = '\0';
 	return (line);
 }
 
 static char	*output(char *s, int ret, int fd)
 {
-	if (ret < 0)
-		return (NULL);
 	if (fd < 0 || BUFF_SIZE < 0)
 		return (NULL);
 	else if (ret == 0 && s[fd] == 0)
@@ -82,7 +78,7 @@ int	read_into_buffer(int fd, char **s)
 
 	ret = read(fd, buff, BUFF_SIZE);
 	if (ret < 0)
-		return (0);
+		return (-1);
 	if (*s == NULL)
 		*s = ft_strdup("");
 	buff[ret] = '\0';
@@ -105,7 +101,8 @@ char	*get_next_line(int fd)
 	char			*temp;
 	int				ret;
 
-	while (1)
+	ret = 1;
+	while (ret > 0)
 	{
 		ret = read_into_buffer(fd, &s);
 		if (ret < 0)

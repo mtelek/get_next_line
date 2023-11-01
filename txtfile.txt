@@ -3,12 +3,3 @@ apfel
 zucker
 aufschnitt
 gurke
-bier
-brot
-milch
-süssigkeiten
-pizza
-eier
-popcorn
-honig
-birne
