@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/02 19:04:24 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 20:59:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static char	*createline(char *s)
 	line = (char *)malloc(len + 2);
 	if (!line)
 	{
-		free(line);
 		return (NULL);
 	}
 	while (i <= len)
@@ -110,7 +109,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	s = read_into_buffer(fd, s);
 	if (!s)
-		return (NULL);
+		return (0);
 	line = createline(s);
 	s = get_remainder(s);
 	return (line);

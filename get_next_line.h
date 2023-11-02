@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:48:16 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/02 14:47:52 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 19:20:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t num, size_t size);
 size_t	ft_strlen(const char *str);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	ft_strdel(char *str);
 
 #endif

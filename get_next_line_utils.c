@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/02 18:34:43 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 20:28:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,49 +92,26 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*s2;
-	int		i;
-
-	i = 0;
-	if (!s1)
-		return (0);
-	s2 = (char *)malloc(ft_strlen(s1) + 1);
-	if (!s2)
-		return (0);
-	while (s1[i])
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t		i;
-	char		*substr;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
+	str = (char*)malloc(sizeof(*s) * (len + 1));
+	if (!str)
+		return (NULL);
 	i = 0;
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s) || len == 0)
-		return (ft_strdup(""));
-	if (start + len > ft_strlen(s))
-		len = ft_strlen(s) - start;
-	substr = (char *)malloc(len + 1);
-	if (!substr)
+	j = 0;
+	while (s[i])
 	{
-		free(substr);
-		return (NULL);
-	}
-	while (s[start + i] != '\0' && i < len)
-	{
-		substr[i] = s[start + i];
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
 		i++;
 	}
-	substr[i] = '\0';
-	return (substr);
+	str[j] = 0;
+	return (str);
 }
