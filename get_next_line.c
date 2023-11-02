@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 22:45:50 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 00:48:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*output(char *s, int ret, int fd)
 {
 	char	*line;
 
-	if (fd < 0 || BUFF_SIZE < 0)
+	if (fd < 0 || BUFF_SIZE < 0 || ret < 0)
 		return (NULL);
 	else if (ret == 0 && *s == '\0')
 		return (NULL);
@@ -76,6 +76,7 @@ static char	*output(char *s, int ret, int fd)
 	}
 }
 
+/*
 int	read_into_buffer(int fd, char **s)
 {
 	int		ret;
@@ -110,6 +111,48 @@ char	*get_next_line(int fd)
 		if (ft_strchr(s, '\n') )
 			break ;
 	}
+	line = output(s, ret, fd);
+	s = get_remainder(s);
+	return (line);
+}
+*/
+char *read_into_buffer(int fd, char *s)
+{
+	int		ret;
+	char	buff[BUFF_SIZE + 1];
+
+	ret = 1;
+	if (!s)
+		s = ft_strdup("");
+	while (ret > 0)
+	{
+		ret = read(fd, buff, BUFF_SIZE);
+		if (ret == -1)
+		{
+			free(s);
+			return (NULL);
+		}
+		buff[ret] = '\0';
+		s = ft_strjoin(s, buff);
+		if (ft_strchr(s, '\n') )
+			break ;
+	}
+	return (s);
+}
+
+char	*get_next_line(int fd)
+{
+	static char		*s;
+	char			*line;
+	int				ret;
+	char	buff[BUFF_SIZE + 1];
+
+	ret = read(fd, buff, BUFF_SIZE);
+	if(!ret)
+		return (NULL);
+	s = read_into_buffer(fd, s);
+	if (!s)
+		return (NULL);
 	line = output(s, ret, fd);
 	s = get_remainder(s);
 	return (line);
