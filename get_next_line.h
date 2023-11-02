@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:48:16 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 22:00:06 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 14:47:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 10
+# define BUFF_SIZE 1
 
 # include <stdio.h>
 # include <stdlib.h>

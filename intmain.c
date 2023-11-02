@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 23:51:08 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/01 21:58:53 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 15:09:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int	main(void)
 	{
 		return (-1);
 	}
-	while (i < 5)
+	while (i < 3)
 	{
 		test = get_next_line(fd);
 		printf("%s", test);
 		free(test);
 		i++;
 	}
+	close(fd);
 }
