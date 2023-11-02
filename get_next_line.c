@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/02 00:48:31 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/02 11:55:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_remainder(char *s)
 	return (temp);
 }
 
-static char	*createline(char *s, int ret)
+static char	*createline(char *s)
 {
 	int		len;
 	char	*line;
@@ -53,14 +53,14 @@ static char	*createline(char *s, int ret)
 		line[i] = s[i];
 		i++;
 	}
-	if (ret != 0)
+	if (len > 0)
 	{
 		line[len] = '\n';
 		line[len + 1] = '\0';
 	}
 	return (line);
 }
-
+/*
 static char	*output(char *s, int ret, int fd)
 {
 	char	*line;
@@ -69,13 +69,14 @@ static char	*output(char *s, int ret, int fd)
 		return (NULL);
 	else if (ret == 0 && *s == '\0')
 		return (NULL);
+
 	else
 	{
 		line = createline(s, ret);
 		return (line);
 	}
 }
-
+*/
 /*
 int	read_into_buffer(int fd, char **s)
 {
@@ -116,20 +117,25 @@ char	*get_next_line(int fd)
 	return (line);
 }
 */
-char *read_into_buffer(int fd, char *s)
+char *read_into_buffer(int fd, char **s)
 {
 	int		ret;
 	char	buff[BUFF_SIZE + 1];
 
 	ret = 1;
-	if (!s)
-		s = ft_strdup("");
+	if (!*s)
+		*s = ft_strdup("");
 	while (ret > 0)
 	{
 		ret = read(fd, buff, BUFF_SIZE);
+		if (fd < 0 || BUFF_SIZE < 0)
+		return (NULL);
+		if (ret == 0 && *s == '\0')
+		return (NULL);
 		if (ret == -1)
 		{
-			free(s);
+
+			free(*s);
 			return (NULL);
 		}
 		buff[ret] = '\0';
@@ -137,6 +143,7 @@ char *read_into_buffer(int fd, char *s)
 		if (ft_strchr(s, '\n') )
 			break ;
 	}
+	free()
 	return (s);
 }
 
@@ -144,16 +151,11 @@ char	*get_next_line(int fd)
 {
 	static char		*s;
 	char			*line;
-	int				ret;
-	char	buff[BUFF_SIZE + 1];
 
-	ret = read(fd, buff, BUFF_SIZE);
-	if(!ret)
-		return (NULL);
 	s = read_into_buffer(fd, s);
 	if (!s)
 		return (NULL);
-	line = output(s, ret, fd);
+	line = createline(s);
 	s = get_remainder(s);
 	return (line);
 }

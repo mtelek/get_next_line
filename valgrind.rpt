@@ -1,0 +1,43 @@
+==28064== Memcheck, a memory error detector
+==28064== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==28064== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==28064== Command: ./a.out
+==28064== Parent PID: 2245
+==28064== 
+==28064== 
+==28064== HEAP SUMMARY:
+==28064==     in use at exit: 51 bytes in 7 blocks
+==28064==   total heap usage: 18 allocs, 11 frees, 1,206 bytes allocated
+==28064== 
+==28064== 1 bytes in 1 blocks are definitely lost in loss record 2 of 4
+==28064==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28064==    by 0x1096E9: ft_strdup (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1093C7: read_into_buffer (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1094A8: get_next_line (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1098A9: main (in /workspaces/get_next_line/a.out)
+==28064== 
+==28064== 11 bytes in 1 blocks are definitely lost in loss record 3 of 4
+==28064==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28064==    by 0x1095CF: ft_strjoin (in /workspaces/get_next_line/a.out)
+==28064==    by 0x109444: read_into_buffer (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1094A8: get_next_line (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1098A9: main (in /workspaces/get_next_line/a.out)
+==28064== 
+==28064== 38 bytes in 4 blocks are definitely lost in loss record 4 of 4
+==28064==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==28064==    by 0x1097E7: ft_substr (in /workspaces/get_next_line/a.out)
+==28064==    by 0x109253: get_remainder (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1094E4: get_next_line (in /workspaces/get_next_line/a.out)
+==28064==    by 0x1098A9: main (in /workspaces/get_next_line/a.out)
+==28064== 
+==28064== LEAK SUMMARY:
+==28064==    definitely lost: 50 bytes in 6 blocks
+==28064==    indirectly lost: 0 bytes in 0 blocks
+==28064==      possibly lost: 0 bytes in 0 blocks
+==28064==    still reachable: 1 bytes in 1 blocks
+==28064==         suppressed: 0 bytes in 0 blocks
+==28064== Reachable blocks (those to which a pointer was found) are not shown.
+==28064== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==28064== 
+==28064== For lists of detected and suppressed errors, rerun with: -s
+==28064== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
