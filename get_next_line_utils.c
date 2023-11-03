@@ -6,36 +6,28 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/03 00:46:55 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/03 16:57:37 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_calloc(size_t num, size_t size)
 {
+	size_t			tot_size;
+	void			*dst;
 	size_t			i;
 	unsigned char	*p;
 
-	p = (unsigned char *)s;
+	tot_size = num * size;
+	dst = malloc(tot_size);
+	p = (unsigned char *)dst;
 	i = 0;
-	while (i < n)
+	while (i < tot_size)
 	{
 		p[i] = 0;
 		i++;
 	}
-}
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	size_t	tot_size;
-	void	*dst;
-
-	tot_size = num * size;
-	dst = malloc(tot_size);
-	if (!dst)
-		return (0);
-	ft_bzero(dst, tot_size);
 	return (dst);
 }
 

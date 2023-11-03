@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/03 00:47:56 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/03 17:06:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,11 @@ char	*get_remainder(char *s)
 	return (temp);
 }
 
-char	*read_into_buffer(int fd, char *s)
+char	*read_into_buffer(int fd, char *s, char *buff)
 {
 	long long int		ret;
-	char				*buff;
 	char				*temp;
 
-	if (!s)
-		s = ft_calloc(1, 1);
-	buff = ft_calloc(BUFF_SIZE + 1, sizeof(char));
-	if (!buff)
-	{
-		free(s);
-		return (NULL);
-	}
 	ret = 1;
 	while (ret > 0)
 	{
@@ -99,10 +90,16 @@ char	*get_next_line(int fd)
 {
 	static char		*s;
 	char			*line;
+	char			*buff;
 
 	if (fd < 0 || BUFF_SIZE <= 0)
 		return (NULL);
-	s = read_into_buffer(fd, s);
+	if (!s)
+		s = ft_calloc(1, 1);
+	buff = ft_calloc(BUFF_SIZE + 1, sizeof(char));
+	if (!buff)
+		return (NULL);
+	s = read_into_buffer(fd, s, buff);
 	if (!s)
 		return (NULL);
 	line = createline(s);
