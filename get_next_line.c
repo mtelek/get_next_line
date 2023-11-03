@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/02 23:05:09 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/03 00:47:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,23 @@
 
 static char	*createline(char *s)
 {
-	int		len;
 	char	*line;
 	int		i;
-	
+
 	i = 0;
-	len = 0;
-	if (s == NULL)
+	if (!s[0])
 		return (NULL);
-	while (s[len] != '\n' && s[len])
-		len++;
-	line = (char *)malloc(len + 2);
-	if (!line)
-	{
-		return (NULL);
-	}
-	while (i <= len)
+	while (s[i] != '\n' && s[i])
+		i++;
+	line = ft_calloc(i + 2, sizeof(char));
+	i = 0;
+	while (s[i] != '\n' && s[i])
 	{
 		line[i] = s[i];
 		i++;
 	}
-		line[len] = '\n';
-		line[len + 1] = '\0';
+	if (s[i] == '\n' && s[i])
+		line[i++] = '\n';
 	return (line);
 }
 
@@ -74,7 +69,7 @@ char	*read_into_buffer(int fd, char *s)
 	if (!s)
 		s = ft_calloc(1, 1);
 	buff = ft_calloc(BUFF_SIZE + 1, sizeof(char));
-	if(!buff)
+	if (!buff)
 	{
 		free(s);
 		return (NULL);
@@ -104,12 +99,12 @@ char	*get_next_line(int fd)
 {
 	static char		*s;
 	char			*line;
-	
+
 	if (fd < 0 || BUFF_SIZE <= 0)
 		return (NULL);
 	s = read_into_buffer(fd, s);
 	if (!s)
-		return (0);
+		return (NULL);
 	line = createline(s);
 	s = get_remainder(s);
 	return (line);
