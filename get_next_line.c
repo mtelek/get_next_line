@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/04 14:14:53 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/04 16:31:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char	*get_remainder(char *s)
 	char		*temp;
 	size_t		len;
 
-	len = 0;
-	while (s[len] != '\n' && s[len] != '\0')
-		len++;
 	if (!s)
 	{
 		free (s);
 		return (NULL);
 	}
+	len = 0;
+	while (s[len] != '\n' && s[len] != '\0')
+		len++;
 	temp = ft_substr(s, len + 1, (ft_strlen(s) - len));
 	if (!temp)
 	{
@@ -74,7 +74,7 @@ char	*read_into_buffer(int fd, char *s, char *buff)
 	ret = 1;
 	while (ret > 0)
 	{
-		ret = read(fd, buff, BUFF_SIZE);
+		ret = read(fd, buff, BUFFER_SIZE);
 		if (ret == -1)
 		{
 			free(buff);
@@ -98,22 +98,20 @@ char	*get_next_line(int fd)
 	char			*line;
 	char			*buff;
 
-	if (fd < 0 || BUFF_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!s)
-		s = ft_calloc(1, 1);
-	buff = ft_calloc(BUFF_SIZE + 1, sizeof(char));
-	if (!buff)
 	{
-		free(s);
-		return (NULL);
+		s = ft_calloc(1, 1);
+		if (!s)
+			return (NULL);
 	}
+	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buff)
+		return (free(s), NULL);
 	s = read_into_buffer(fd, s, buff);
 	if (!s)
-	{
-		free(s);
-		return (NULL);
-	}
+		return (free(s), NULL);
 	line = createline(s);
 	s = get_remainder(s);
 	return (line);
