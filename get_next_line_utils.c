@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:53 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/03 16:57:37 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/04 14:30:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*ft_calloc(size_t num, size_t size)
 
 	tot_size = num * size;
 	dst = malloc(tot_size);
+	if (!dst)
+		return (0);
 	p = (unsigned char *)dst;
 	i = 0;
 	while (i < tot_size)
@@ -49,7 +51,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -58,8 +60,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	new_string = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!new_string)
+	if (!new_string || !s1 || !s2)
+	{
+		free(s1);
 		return (0);
+	}
 	while (s1[i] != '\0')
 	{
 		new_string[i] = s1[i];
@@ -79,6 +84,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
