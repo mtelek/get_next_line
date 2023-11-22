@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:47:34 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/05 19:07:17 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/22 10:03:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char	*get_remainder(char *s)
 	char		*temp;
 	size_t		len;
 
-	if (!s)
+	len = 0;
+	while (s[len] != '\n' && s[len])
+		len++;
+	if (!s[len])
 	{
-		free (s);
+		free(s);
 		return (NULL);
 	}
-	len = 0;
-	while (s[len] != '\n' && s[len] != '\0')
-		len++;
 	temp = ft_substr(s, len + 1, (ft_strlen(s) - len));
 	if (!temp)
 	{
