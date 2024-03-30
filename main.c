@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intmain.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mtelek <mtelek@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 23:51:08 by mtelek            #+#    #+#             */
-/*   Updated: 2023/11/05 18:56:10 by codespace        ###   ########.fr       */
+/*   Created: 2024/03/30 20:33:58 by mtelek            #+#    #+#             */
+/*   Updated: 2024/03/30 20:35:20 by mtelek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,18 @@
 int	main(void)
 {
 	int		fd;
-	char	*test;
+	char	*text;
 	int		i;
 
 	i = 0;
 	fd = open("txtfile.txt", O_RDONLY);
 	if (fd == -1)
-	{
 		return (-1);
-	}
 	while (i < 3)
 	{
-		test = get_next_line(fd);
-		printf("%s", test);
-		free(test);
+		text = get_next_line(fd);
+		printf("%s", text);
+		free(text);
 		i++;
 	}
 	close(fd);
